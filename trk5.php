@@ -71,11 +71,11 @@ $url="http://50.bn.ru/sale/$type/$type_state/??sort=price_for_sort$roomss&price[
 <select multiple size="3" name="rooms[]">
 <?
 for($i=1;$i<=5;$i++){
-print "<option value=\"$i\" >$i"; 
+echo "<option value=\"$i\" >$i"; 
 if($i==5){
-print "+";	
+echo "+";	
 }
-print "</option>";
+echo "</option>";
 }//for
 
 ?>
@@ -104,23 +104,10 @@ print "</option>";
 //--------------result-------------------
 //откуда будем парсить информацию: 
 $result=file_get_contents($url); 
-
-//начало забираемого контента: 
 $out_block=strpos($result,'<div class="result">'); 
-
-//Отрезаем все, что идет до нужной нам позиции: 
 $result=substr($result,$out_block); 
-
-//Таким же образом находим позицию конечной строки: 
 $out_block=strpos($result, '<div class="pager">'); 
-
-//Отрезаем ненужное: 
 $result=substr($result,0,$out_block); 
-
-//Если встречается код, который нам ненужен, вырезаем его: 
-//$content=str_replace('<div class="pager">','', $content); 
-
-//Выводим спарсенный текст: 
 echo iconv('windows-1251', 'utf-8', $result);
 ?>
 </td>
